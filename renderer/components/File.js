@@ -6,11 +6,20 @@ import CreateMenu from './CreateMenu';
 const { getCssClassByFileExt } = require('../../lib/file-tree');
 
 const File = ({ file, dblClickHandler, selectedItem, id, clickHandler, renameFlag, renameHandler, openCreateMenu, openMenuId, createMenuHandler}) => {
+   
+  const twoHandlers = ()=>{
+    const event1 = (event) => dblClickHandler(file, event)
+    const event2 = (event) => clickHandler(id, file.path, file.type, event)
+    event1()
+    event2()
+   }
+  
   return (
     <li
       className={selectedItem.id === id ? 'list-item selected' : 'list-item'}
-      onDoubleClick={(event) => dblClickHandler(file, event)}
-      onClick={(event) => clickHandler(id, file.path, file.type, event)}
+      // onClick={(event) => dblClickHandler(file, event)}
+      // onClick={(event) => clickHandler(id, file.path, file.type, event)}
+      onClick= {() => twoHandlers()}
       onContextMenu ={(event) => openCreateMenu(id, file.path, file.type, event)}
     >
     {openMenuId === id ? <CreateMenu createMenuHandler={createMenuHandler} path = {file.path} type = {file.type} id={id} /> : <span />}

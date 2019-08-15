@@ -1,28 +1,26 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 
-class InWindowSimulator extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      url : 'about:blank'
+
+function InWindowSimulator(props){
+  const [url, changeURL] = useState({
+    url: 'about:blank'
+  })
+  useEffect(()=>{
+    if(props.url !== url.url){
+      changeURL({url: props.url})
     }
+  })
+  const style = {
+    height: '60%',
+    width: '100%',
+    borderWidth: '0px',
   }
-  componentDidUpdate(prevProps) {
-    if(prevProps.url !== this.state.url) {
-      this.setState({url: this.props.url});
-    }
+    return (
+      <div>
+        <iframe style = {style} src={url.url}></iframe>
+      </div>
+    )
   }
-  render() {
-    const style = {
-      height: '60%',
-      width: '100%',
-      borderWidth: '0px',
-    }
-      return (
-        <div>
-          <iframe style = {style} src={this.state.url}></iframe>
-        </div>
-      )
-  }
-}
+
 export default InWindowSimulator;
+

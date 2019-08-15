@@ -40,7 +40,7 @@ const createNewProj = () => {
 }
 
 
-const openExistingProject = (windowObj) => {
+const openExistingProject = () => {
 
   global.mainWindow.webContents.send('closeSim', 'helloworld');
   global.newProj = false;
